@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* light professional background */
+    overflow: hidden;
+}
+
+/* Navbar container */
+.navbar {
+    background-color: #1e3a8a; /* Professional blue */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+}
+
+/* Brand title */
+.navbar-brand {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 50px;
+    width: 15%;
+    text-align: center;
+}
+
+/* Links container */
+.navbar-links {
+    display: flex;
+    gap: 15px;
+}
+
+/* Individual link */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-icons {
+    display: flex;
+    gap: 17px;
+}
+
+/* Layout wrapper */
+.main-container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 15%;
+    height: calc(100vh - 64px); /* full height minus navbar */
+    background-color: #374151;
+    color: white;
+    padding: 20px 20px;
+    left: 0;
+}
+
+/* Sidebar title */
+.sidebar-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+/* Sidebar links */
+.sidebar-link {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.content {
+    width: 85%;
+    padding: 20px 20px;
+}
+
+/* center headers */
+.ag-header-cell {
+    background-color: #D8E2E8 !important;  /* light professional blue */
+}
+
+.ag-header-container {
+    background-color: #D8E2E8 !important;  /* light professional blue */
+}
+
+.ag-header-cell-label {
+    justify-content: center !important;  /* horizontal center */
+    background-color:#D8E2E8 !important;
+    font-weight: bold;
+}
+
+/* center cell values */
+.ag-center-cell {
+    text-align: center;
+}
