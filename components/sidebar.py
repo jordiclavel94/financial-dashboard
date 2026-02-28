@@ -12,9 +12,9 @@ sidebar = html.Div(
             number_input("Monthly Net Salary (€)", "monthly-salary", 3000, 100, 10000, 100),
             number_input("Monthly Investment (€)", "monthly-investment", 500, 100, 10000, 50),
             number_input("Monthly Expenses (€)", "monthly-expenses", 1000, 100, 10000, 100),
+            number_input("Initial Investment (€)", "initial-investment", 0, 0, 1000000, 100),
             number_input("Investment Rate (%)", "anual-return", 2, 1, 100, 1),
             number_input("Variance Rate (%)", "anual-variance", 2, 1, 100, 1),
-            number_input("Inflation Rate (%)", "anual-inflation", 2, 1, 100, 1),
             html.Div(
                 button(
                     [

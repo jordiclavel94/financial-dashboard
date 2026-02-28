@@ -42,11 +42,12 @@ app.layout = html.Div(
     State("monthly-salary","value"),
     State("monthly-investment","value"),
     State("monthly-expenses","value"),
+    State("initial-investment","value"),
     State("anual-return","value"),
     State("anual-variance","value"),
 )
 
-def update_simulation(n_clicks, age, retirement_age, salary, investment, expenses, rate, variance):
+def update_simulation(n_clicks, age, retirement_age, salary, investment, expenses, io_investment, rate, variance):
     if not n_clicks:
         return "0€", "0€", "0€", "0", {}, {}, None, {}
     
@@ -60,7 +61,7 @@ def update_simulation(n_clicks, age, retirement_age, salary, investment, expense
     a = (rate + variance*2) / 100
 
     # ----- KPI Cards Totals -----
-    total_invested = investment*months
+    total_invested = io_investment + investment*months
     total_saved = (salary-expenses-investment)*months
     projected_networth = total_saved + total_invested
 
@@ -71,7 +72,12 @@ def update_simulation(n_clicks, age, retirement_age, salary, investment, expense
     yearly_savings = (salary - expenses - investment) * 12
 
     #portfolio_value = yearly_investment * x_years
-    portfolio_value = (yearly_investment / 12) * (((1 + r/12)**(x_years*12) - 1) / (r/12))
+    #portfolio_value = (yearly_investment / 12) * (((1 + r/12)**(x_years*12) - 1) / (r/12))
+    portfolio_value = (
+    io_investment * (1 + r/12)**(x_years*12)
+    + (yearly_investment / 12) *
+      (((1 + r/12)**(x_years*12) - 1) / (r/12))
+    )
     total_savings = yearly_savings * x_years
     total_contributed = portfolio_value + total_savings
 
@@ -87,9 +93,9 @@ def update_simulation(n_clicks, age, retirement_age, salary, investment, expense
     fig = area_projection_chart(df)
 
     # ----- Build Scenarios KPIs -----
-    conservative = investment * (((1 + r/12)**months - 1) / (r/12))
-    optimistic = investment * (((1 + o/12)**months - 1) / (o/12))
-    agressive = investment * (((1 + a/12)**months - 1) / (a/12))
+    conservative = io_investment * (1 + r/12) ** months + investment * (((1 + r/12)**months - 1) / (r/12))
+    optimistic = io_investment * (1 + r/12) ** months + investment * (((1 + o/12)**months - 1) / (o/12))
+    agressive = io_investment * (1 + r/12) ** months + investment * (((1 + a/12)**months - 1) / (a/12))
     projected_networth = total_saved + conservative
 
     # ----- Pie Chart (%) -----
@@ -103,7 +109,8 @@ def update_simulation(n_clicks, age, retirement_age, salary, investment, expense
     # ----- Financial Freedom -----
     i = r / 12
     target = expenses*12/r
-    n = np.log(1 + i * (target) / investment) / np.log(1 + i)
+    #n = np.log(1 + i * (target) / investment) / np.log(1 + i)
+    n = np.log((target + investment/i) / (io_investment + investment/i)) / np.log(1 + i)
     freedom_years = math.ceil(n / 12)
 
     df_grid = df.copy()
